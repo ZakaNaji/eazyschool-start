@@ -12,7 +12,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class LoginController {
 
     @RequestMapping(value = "/login", method = {RequestMethod.GET})
-    public String displayLoginPage() {
+    public String displayLoginPage(@RequestParam(name = "error", required = false) String error, Model model) {
+        String errorMessge = "";
+        if (error != null) {
+            errorMessge = "Failed to login";
+        }
+        model.addAttribute("errorMessge", errorMessge);
         return "login.html";
     }
 
